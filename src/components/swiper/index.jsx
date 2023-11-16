@@ -11,7 +11,7 @@ import 'swiper/modules/navigation/navigation.min.css';
 
 
 // import required modules
-import Scrollbar from 'swiper/modules/scrollbar/scrollbar';
+// import Scrollbar from 'swiper/modules/scrollbar/scrollbar';
 import Navigation from 'swiper/modules/navigation/navigation';
 import { styled } from '@mui/material';
 import RemedialStudyCard from '../RemedialStudyCard';
@@ -21,6 +21,8 @@ const dummyArray = [1, 2, 3, 4, 5, 6]
 
 const RemedialStudyContent = () => {
     const[ activeIndex , setActiveIndex] = useState(0)
+
+    const swiperRef = useRef()
 
     const commonCss = {
         width: '44px',
@@ -62,16 +64,17 @@ const RemedialStudyContent = () => {
                 <Swiper
                     spaceBetween={18}
                     slidesPerView={1.2}
-                    onSlideChange={(swiperCore) => {
-                        console.log('slide change' , swiperCore.activeIndex)
-                        setActiveIndex(swiperCore.activeIndex)
+                    ref={swiperRef}
+                    onSlideChange={(swiper) =>  setActiveIndex(swiper)}
+                    // onSwiper={(swiper) => { console.log('onSwiper', swiper) }}
+                    // onActiveIndexChange={(index) => handleIndex(index)}
+                    // allowTouchMove={false}
+                    pagination={{
+                        type: 'progressbar',
                     }}
-                    onSwiper={(swiper) => console.log(swiper)}
                     navigation={true}
-                    scrollbar={{
-                        hide: true,
-                    }}
-                    modules={[Scrollbar, Navigation]}>
+                    modules={[Navigation]}
+                    >
                     {dummyArray.map((item, index) => {
                         return (
                             <SwiperSlide key={index}><RemedialStudyCard index={index} /></SwiperSlide>
